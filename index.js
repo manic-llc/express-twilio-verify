@@ -1,21 +1,34 @@
-import express from 'express';
 import twilio from 'twilio';
 
 function error(param) {
   throw new Error(`@express/twilio-verify: "${param}" is a required configuration parameter.`);
 }
 
-export default (args = {}) => {
+function parseConfig(config) {
   const { url, verifySid, accountSid, authToken, onLogin, onError } = {
     url: `/api/twilio/login/:phone`,
     onError: e => e,
-    ...args,
+    ...config,
   };
 
+  if (!url) error('url');
   if (!verifySid) error('verifySid');
   if (!accountSid) error('accountSid');
   if (!authToken) error('authToken');
   if (!onLogin) error('onLogin');
+
+  return {
+    url,
+    verifySid,
+    accountSid,
+    authToken,
+    onLogin,
+    onError,
+  };
+}
+
+export default (app, config = {}) => {
+  const { url, verifySid, accountSid, authToken, onLogin, onError } = parseConfig(config);
 
   const {
     verify: {
@@ -23,9 +36,7 @@ export default (args = {}) => {
     },
   } = twilio(accountSid, authToken);
 
-  const router = express.Router();
-
-  router.get(url, (req, res) => {
+  app.get(url, (req, res) => {
     try {
       const {
         params: { phone },
@@ -38,7 +49,7 @@ export default (args = {}) => {
     }
   });
 
-  router.post(url, (req, res) => {
+  app.post(url, (req, res) => {
     try {
       const {
         body: { code },
@@ -54,6 +65,4 @@ export default (args = {}) => {
       res.status(500).send(onError(e));
     }
   });
-
-  return router;
 };
