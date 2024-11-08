@@ -16,7 +16,7 @@ import OTP from '@wearemanic/express-twilio-verify'
 
 const app = express()
 
-OTP(app, twilioVerify({
+OTP(app, {
   url: `/api/twilio/login/:phone`,
   verifySid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
   accountSid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
@@ -27,7 +27,7 @@ OTP(app, twilioVerify({
   onError (e) {
     // cry, a lot
   },
-}))
+})
 
 app.listen(3000)
 ```
