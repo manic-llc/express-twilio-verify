@@ -10,14 +10,13 @@ npm install --save @wearemanic/express-twilio-verify
 
 ## Usage
 
-The package is installable as Express middleware. 
 ```javascript
 import express from 'express';
-import twilioVerify from '@wearemanic/express-twilio-verify'
+import OTP from '@wearemanic/express-twilio-verify'
 
 const app = express()
 
-const config = {
+OTP(app, twilioVerify({
   url: `/api/twilio/login/:phone`,
   verifySid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
   accountSid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
@@ -28,9 +27,7 @@ const config = {
   onError (e) {
     // cry, a lot
   },
-}
-
-app.use(twilioVerify(config))
+}))
 
 app.listen(3000)
 ```
