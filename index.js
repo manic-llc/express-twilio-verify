@@ -6,7 +6,7 @@ function error(param) {
 }
 
 export default (args = {}) => {
-  const { url, verifySid, accountSid, authToken, defaultPhone, onLogin } = {
+  const { url, verifySid, accountSid, authToken, defaultPhone, onLogin, onError } = {
     url: `/api/twilio/login/:phone`,
     ...args,
   };
@@ -33,8 +33,7 @@ export default (args = {}) => {
         .verifications.create({ to: phone || defaultPhone, channel: 'sms' })
         .then(verification => res.send(verification));
     } catch (e) {
-      console.log(e);
-      res.status(500).send({});
+      res.status(500).send(onError?.(e));
     }
   });
 
@@ -51,8 +50,7 @@ export default (args = {}) => {
           throw new Error(e);
         });
     } catch (e) {
-      console.log(e);
-      res.status(500).send({});
+      res.status(500).send(onError?.(e));
     }
   });
 };
