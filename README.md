@@ -22,8 +22,12 @@ const config = {
   verifySid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
   accountSid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
   authToken: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-  onLogin ({ phone }) {},
-  onError (e) {},
+  onLogin ({ phone }) {
+    // find or create user
+  },
+  onError (e) {
+    // cry, a lot
+  },
 }
 
 app.use(twilioVerify(config))
