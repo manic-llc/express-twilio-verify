@@ -6,7 +6,7 @@ function error(param) {
 }
 
 export default (args = {}) => {
-  const { url, verifySid, accountSid, authToken, defaultPhone, onLogin, onError } = {
+  const { url, verifySid, accountSid, authToken, onLogin, onError } = {
     url: `/api/twilio/login/:phone`,
     ...args,
   };
@@ -30,7 +30,7 @@ export default (args = {}) => {
         params: { phone },
       } = req;
       services(verifySid)
-        .verifications.create({ to: phone || defaultPhone, channel: 'sms' })
+        .verifications.create({ to: phone, channel: 'sms' })
         .then(verification => res.send(verification));
     } catch (e) {
       res.status(500).send(onError?.(e));
