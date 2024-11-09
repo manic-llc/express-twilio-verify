@@ -1,6 +1,6 @@
 {
   "name": "@wearemanic/express-twilio-verify",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": false,
   "description": "Plug-and-play Twilio Verify implementation for Express.",
   "main": "index.js",

@@ -18,8 +18,8 @@ const app = express()
 
 OTP(app, {
   url: `/api/twilio/login/:phone`,
-  verifySid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-  accountSid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+  verifySid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  accountSid: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
   authToken: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
   onLogin ({ phone }) {
     // find or create user
@@ -32,6 +32,4 @@ OTP(app, {
 app.listen(3000)
 ```
 
-`config.url` and `config.onError` are **optional**; their default values are shown.
-
-The return values of `config.onLogin` and `config.onError` will be passed to the client making the authentication requests. 
+> *Note – `url` and `onError` are **optional**; their default values are shown. The return values of `onLogin` and `onError` will be passed to the client making the authentication requests.*
